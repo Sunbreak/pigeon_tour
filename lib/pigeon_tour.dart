@@ -1,12 +1,13 @@
 import 'dart:async';
 
-import 'package:flutter/services.dart';
+import 'package:pigeon_tour/message.dart';
 
 class PigeonTour {
-  static const MethodChannel _channel = const MethodChannel('pigeon_tour');
+  static final api = Api();
 
   static Future<String> get platformVersion async {
-    final String version = await _channel.invokeMethod('getPlatformVersion');
-    return version;
+    var searchRequest = SearchRequest()..query = 'getPlatformVersion';
+    var searchReply = await api.search(searchRequest);
+    return searchReply.result;
   }
 }
